@@ -14,7 +14,7 @@ export const CenterCircle: FunctionalComponent = () => {
       }}
     >
       <div>
-        <div class="text-5xl font-bold">- 秒 -</div>
+        <div class="text-5xl font-bold py-3">- 秒 -</div>
         <div class="text-sm">3秒で消えるSNS</div>
       </div>
       <div class="text-sm">09時54分49秒</div>
