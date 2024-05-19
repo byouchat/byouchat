@@ -1,0 +1,48 @@
+.popup {
+  color: white;
+  background-color: black;
+  padding: 2rem;
+
+  position: absolute;
+  left: var(--popup-x);
+  top: var(--popup-y);
+}
+
+.appearActive {
+  animation: bounce 0.4s;
+}
+
+.appearDone {
+  opacity: 1;
+}
+
+.exit {
+  opacity: 1;
+}
+
+.exitActive {
+  animation: bounce 0.4s reverse;
+}
+
+.exitDone {
+  opacity: 0;
+}
+
+@keyframes bounce {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  1% {
+    opacity: 1;
+  }
+  40% {
+    transform: scale(1);
+  }
+  80% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

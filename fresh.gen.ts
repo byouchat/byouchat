@@ -8,6 +8,14 @@ import * as $api_joke from "./routes/api/joke.ts";
 import * as $greet_name_ from "./routes/greet/[name].tsx";
 import * as $index from "./routes/index.tsx";
 import * as $Counter from "./islands/Counter.tsx";
+import * as $center_circle_Button from "./islands/center-circle/Button.tsx";
+import * as $center_circle_CenterCircle from "./islands/center-circle/CenterCircle.tsx";
+import * as $center_circle_Input from "./islands/center-circle/Input.tsx";
+import * as $message_MessageField from "./islands/message/MessageField.tsx";
+import * as $message_MessagePopup from "./islands/message/MessagePopup.tsx";
+import * as $message_message from "./islands/message/message.ts";
+import * as $message_transition_StyleTransition from "./islands/message/transition/StyleTransition.tsx";
+import * as $message_transition_Transition from "./islands/message/transition/Transition.tsx";
 import { type Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -20,6 +28,16 @@ const manifest = {
   },
   islands: {
     "./islands/Counter.tsx": $Counter,
+    "./islands/center-circle/Button.tsx": $center_circle_Button,
+    "./islands/center-circle/CenterCircle.tsx": $center_circle_CenterCircle,
+    "./islands/center-circle/Input.tsx": $center_circle_Input,
+    "./islands/message/MessageField.tsx": $message_MessageField,
+    "./islands/message/MessagePopup.tsx": $message_MessagePopup,
+    "./islands/message/message.ts": $message_message,
+    "./islands/message/transition/StyleTransition.tsx":
+      $message_transition_StyleTransition,
+    "./islands/message/transition/Transition.tsx":
+      $message_transition_Transition,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;
