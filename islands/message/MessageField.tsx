@@ -7,22 +7,20 @@ export const MessageField: FunctionalComponent = () => {
   const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
-    // const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-    // const host = window.location.host;
-    // const wsUrl = `${protocol}//${host}/api/socket`;
-    // const socket = new WebSocket(wsUrl);
-    // socket.addEventListener("error", console.error);
-    // socket.addEventListener("close", console.log);
-    // socket.addEventListener("message", (event) => {
-    //   console.log("[socket:message]", event);
-    // });
-    // new Promise((resolve) => socket.addEventListener("open", resolve)).then(
-    //   () => {
-    //     socket.send("Hello");
-    //   },
-    // );
+    const source = new EventSource("/api/messages");
+    source.addEventListener("message", (event) => {
+      const data = JSON.parse(event.data);
+      const message = {
+        id: data.id,
+        body: data.message,
+        position: generatePosition(),
+      };
+      setMessages((current) => [...current, message]);
+    });
 
-    setMessages([{ id: "aa", body: "fooo", position: generatePosition() }]);
+    return () => {
+      source.close();
+    };
   }, []);
 
   return (
