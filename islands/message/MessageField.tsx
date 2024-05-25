@@ -30,7 +30,7 @@ export const MessageField: FunctionalComponent = () => {
   };
 
   return (
-    <div>
+    <div class="overflow-hidden">
       <style
         dangerouslySetInnerHTML={{
           __html: `

@@ -1,8 +1,7 @@
 export function generatePosition(): [x: number, y: number] {
-  const areaWidth = globalThis.innerWidth;
-  const areaHeight = globalThis.innerHeight * 0.88;
-  const pixel = Math.random() * areaHeight * areaWidth - 1;
-  const x = (pixel % areaWidth) + globalThis.innerWidth * 0.025;
-  const y = pixel / areaWidth;
+  const areaWidth = globalThis.document.documentElement.clientWidth * 0.8;
+  const areaHeight = globalThis.document.documentElement.clientHeight * 0.8;
+  const x = areaWidth * (Math.random() + 0.05);
+  const y = areaHeight * (Math.random() + 0.05);
   return [x, y];
 }
