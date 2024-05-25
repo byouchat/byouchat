@@ -81,7 +81,6 @@ export const CenterCircle: FunctionalComponent = () => {
       {isPaletteOpen && (
         <ColorPalette
           onExited={() => {
-            console.log("exited");
             setPaletteOpen(false);
           }}
         />

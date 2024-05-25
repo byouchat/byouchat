@@ -37,8 +37,6 @@ export default (props: StyleTransitionProps): VNode<any> => {
       [style, styles, phase],
     );
 
-    console.log("p", phase);
-
     return cloneElement(children, { style: finalStyle });
   });
 };
