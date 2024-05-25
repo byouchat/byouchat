@@ -9,10 +9,10 @@ export const MessageField: FunctionalComponent = () => {
   useEffect(() => {
     const source = new EventSource("/api/messages");
     source.addEventListener("message", (event) => {
-      const data = JSON.parse(event.data);
+      const data: Message = JSON.parse(event.data);
       const message = {
         id: data.id,
-        body: data.message,
+        body: data.body,
         position: generatePosition(),
       };
       setMessages((current) => [...current, message]);

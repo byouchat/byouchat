@@ -5,9 +5,7 @@
 import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
 import * as $api_messages from "./routes/api/messages.ts";
-import * as $greet_name_ from "./routes/greet/[name].tsx";
 import * as $index from "./routes/index.tsx";
-import * as $Counter from "./islands/Counter.tsx";
 import * as $center_circle_Button from "./islands/center-circle/Button.tsx";
 import * as $center_circle_CenterCircle from "./islands/center-circle/CenterCircle.tsx";
 import * as $center_circle_Input from "./islands/center-circle/Input.tsx";
@@ -23,11 +21,9 @@ const manifest = {
     "./routes/_404.tsx": $_404,
     "./routes/_app.tsx": $_app,
     "./routes/api/messages.ts": $api_messages,
-    "./routes/greet/[name].tsx": $greet_name_,
     "./routes/index.tsx": $index,
   },
   islands: {
-    "./islands/Counter.tsx": $Counter,
     "./islands/center-circle/Button.tsx": $center_circle_Button,
     "./islands/center-circle/CenterCircle.tsx": $center_circle_CenterCircle,
     "./islands/center-circle/Input.tsx": $center_circle_Input,

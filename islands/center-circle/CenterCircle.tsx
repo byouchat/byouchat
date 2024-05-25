@@ -2,6 +2,7 @@ import { FunctionalComponent } from "preact";
 import { Input } from "./Input.tsx";
 import { Button } from "./Button.tsx";
 import { ComponentProps } from "preact";
+import { PostMessageBody } from "../../routes/api/messages.ts";
 
 export const CenterCircle: FunctionalComponent = () => {
   const onSubmit: ComponentProps<"form">["onSubmit"] = async (
@@ -11,12 +12,16 @@ export const CenterCircle: FunctionalComponent = () => {
     const target = e.target as HTMLFormElement;
     const formData = new FormData(target);
     const message = formData.get("message")?.toString();
-    await fetch("/api/messages", {
-      method: "POST",
-      body: JSON.stringify({
-        message,
-      }),
-    });
+    if (message) {
+      await fetch("/api/messages", {
+        method: "POST",
+        body: JSON.stringify(
+          {
+            message,
+          } satisfies PostMessageBody,
+        ),
+      });
+    }
 
     target?.reset();
   };

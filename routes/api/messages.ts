@@ -1,65 +1,52 @@
 import { Handlers } from "$fresh/server.ts";
+import { createMessage, getMessages, watchMessage } from "../../libs/kv.ts";
+import { generateReply } from "../../libs/llm.ts";
 
 const encoder = new TextEncoder();
 
+export type Message = {
+  id: string;
+  body: string;
+};
+
+export type PostMessageBody = {
+  message: string;
+};
+
 export const handler: Handlers = {
   async POST(req) {
-    const body = await req.json();
+    const body: PostMessageBody = await req.json();
 
-    const kv = await Deno.openKv();
-
-    const id = crypto.randomUUID();
-    kv.set(["latestMessage"], { id, message: body.message }, {
-      expireIn: 5000,
-    });
+    const message = await createMessage(body.message, "USER");
 
     setTimeout(async () => {
-      const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${Deno.env.get("OPEN_ROUTER_API_TOKEN")}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          "model": "meta-llama/llama-3-8b-instruct:free",
-          "messages": [
-            {
-              "role": "system",
-              "content":
-                "ここはインターネットのチャット掲示板です。メッセージに対して30文字以内の日本語で返事してください。2chのような口調で、少しぶっきらぼうで、タメ口で答えてください。",
-            },
-            { "role": "user", "content": body.message },
-          ],
-        }),
-      });
+      const messages = await getMessages(message.id);
+      const llmReply = await generateReply(message.body, messages);
 
-      const llmBody = await res.json();
-      const llmMessage = llmBody?.choices?.at(0)?.message?.content;
-      if (llmMessage) {
-        const id = crypto.randomUUID();
-        kv.set(["latestMessage"], { id, message: llmMessage }, {
-          expireIn: 5000,
-        });
-      }
+      await createMessage(llmReply, "BOT");
     }, 1500);
 
     return new Response(JSON.stringify({ ok: "ok" }), {
       headers: { "Content-Type": "application/json" },
     });
   },
-  async GET() {
-    const kv = await Deno.openKv();
+  GET() {
+    let closeKv: (() => void) | undefined;
     const stream = new ReadableStream({
       async start(controller) {
-        for await (const [message] of kv.watch([["latestMessage"]])) {
-          const data = encoder.encode(
-            `data: ${JSON.stringify(message.value)}\n\n`,
+        await watchMessage((message) => {
+          const data = {
+            id: message.id,
+            body: message.body,
+          } satisfies Message;
+          const encoded = encoder.encode(
+            `data: ${JSON.stringify(data)}\n\n`,
           );
-          controller.enqueue(data);
-        }
+          controller.enqueue(encoded);
+        });
       },
       cancel() {
-        kv?.close();
+        closeKv?.();
       },
     });
 
