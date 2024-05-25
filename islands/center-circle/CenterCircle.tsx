@@ -4,8 +4,18 @@ import { Button } from "./Button.tsx";
 import { ComponentProps } from "preact";
 import { PostMessageBody } from "../../routes/api/messages.ts";
 import { CurrentTimeText } from "./CurrentTimeText.tsx";
+import { useState } from "preact/hooks";
+import { ColorPalette } from "../color-palette/ColorPalette.tsx";
+import {
+  colorMap,
+  colorSignal,
+  getTextColorForBgColor,
+} from "../../libs/color-pallete.ts";
 
 export const CenterCircle: FunctionalComponent = () => {
+  const color = colorSignal.value;
+  const [isPaletteOpen, setPaletteOpen] = useState(false);
+
   const onSubmit: ComponentProps<"form">["onSubmit"] = async (
     e,
   ) => {
@@ -26,34 +36,50 @@ export const CenterCircle: FunctionalComponent = () => {
 
     target?.reset();
   };
+  const openPalette = () => {
+    setPaletteOpen(true);
+  };
 
   return (
-    <div
-      class="w-96 h-96 rounded-full p-8 flex flex-col items-center gap-4"
-      style={{
-        "color": "var(--circle-text-color)",
-        "backgroundColor": "var(--circle-bg-color)",
-        "--circle-bg-color": "rgb(44, 44, 44)", // TODO: palette
-        "--circle-text-color": "white",
-      }}
-    >
-      <div>
-        <div class="text-5xl font-bold py-3">- 秒 -</div>
-        <div class="text-sm">3秒で消えるSNS</div>
-      </div>
-      <div class="text-sm">
-        <CurrentTimeText />
-      </div>
-      <form class="w-full flex flex-col gap-4 px-3" onSubmit={onSubmit}>
-        <Input name="message" placeholder="ここにテキストを入力" />
-        <div class="w-full flex justify-between items-center">
-          <div>Color</div>
-          <Button type="submit">送信</Button>
+    <>
+      <div
+        class="w-96 h-96 rounded-full p-8 flex flex-col items-center gap-4 bg-byou-green"
+        style={{
+          "backgroundColor": colorMap[color],
+          "color": getTextColorForBgColor(color),
+        }}
+      >
+        <div>
+          <div class="text-5xl font-bold py-3">- 秒 -</div>
+          <div class="text-sm">3秒で消えるSNS</div>
         </div>
-      </form>
-      <div class="flex flex-col-reverse flex-grow text-sm">
-        <div>Twitter @BYOUCHAT</div>
+        <div class="text-sm">
+          <CurrentTimeText />
+        </div>
+        <form class="w-full flex flex-col gap-4 px-3" onSubmit={onSubmit}>
+          <Input name="message" placeholder="ここにテキストを入力" />
+          <div class="w-full flex justify-between items-center">
+            <button onClick={openPalette}>Color</button>
+            <Button
+              type="submit"
+              style={{ borderColor: getTextColorForBgColor(color) }}
+            >
+              送信
+            </Button>
+          </div>
+        </form>
+        <div class="flex flex-col-reverse flex-grow text-sm">
+          <div>Twitter @BYOUCHAT</div>
+        </div>
       </div>
-    </div>
+      {isPaletteOpen && (
+        <ColorPalette
+          onExited={() => {
+            console.log("exited");
+            setPaletteOpen(false);
+          }}
+        />
+      )}
+    </>
   );
 };

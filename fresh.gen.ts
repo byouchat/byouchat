@@ -10,6 +10,7 @@ import * as $center_circle_Button from "./islands/center-circle/Button.tsx";
 import * as $center_circle_CenterCircle from "./islands/center-circle/CenterCircle.tsx";
 import * as $center_circle_CurrentTimeText from "./islands/center-circle/CurrentTimeText.tsx";
 import * as $center_circle_Input from "./islands/center-circle/Input.tsx";
+import * as $color_palette_ColorPalette from "./islands/color-palette/ColorPalette.tsx";
 import * as $message_MessageField from "./islands/message/MessageField.tsx";
 import * as $message_MessagePopup from "./islands/message/MessagePopup.tsx";
 import * as $message_message from "./islands/message/message.ts";
@@ -30,6 +31,7 @@ const manifest = {
     "./islands/center-circle/CurrentTimeText.tsx":
       $center_circle_CurrentTimeText,
     "./islands/center-circle/Input.tsx": $center_circle_Input,
+    "./islands/color-palette/ColorPalette.tsx": $color_palette_ColorPalette,
     "./islands/message/MessageField.tsx": $message_MessageField,
     "./islands/message/MessagePopup.tsx": $message_MessagePopup,
     "./islands/message/message.ts": $message_message,
