@@ -60,7 +60,12 @@ export const CenterCircle: FunctionalComponent = () => {
         <form class="w-full flex flex-col gap-4 px-3" onSubmit={onSubmit}>
           <Input name="message" placeholder="ここにテキストを入力" />
           <div class="w-full flex justify-between items-center">
-            <button onClick={openPalette}>Color</button>
+            <button onClick={openPalette} type="button">
+              <img
+                className="w-10 h-10 cursor-pointer"
+                src="/palette-button.png"
+              />
+            </button>
             <Button
               type="submit"
               style={{ borderColor: getTextColorForBgColor(color) }}
