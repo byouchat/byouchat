@@ -1,5 +1,4 @@
 import { useSignal } from "@preact/signals";
-import Counter from "../islands/Counter.tsx";
 import { CenterCircle } from "../islands/center-circle/CenterCircle.tsx";
 import { MessageField } from "../islands/message/MessageField.tsx";
 
