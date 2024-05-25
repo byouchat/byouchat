@@ -8,10 +8,11 @@ import { getTextColorForBgColor } from "../../libs/color-pallete.ts";
 type Props = {
   message: Message;
   position: [x: number, y: number];
+  onExited: (messageId: string) => void;
 };
 
 export const MessagePopup: FunctionalComponent<Props> = (
-  { message, position },
+  { message, position, onExited },
 ) => {
   const [isShown, setShown] = useState(true);
 
@@ -52,6 +53,7 @@ export const MessagePopup: FunctionalComponent<Props> = (
         },
       }}
       appear
+      onExited={() => onExited(message.id)}
     >
       <div
         class="p-8 absolute"

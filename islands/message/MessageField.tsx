@@ -25,6 +25,10 @@ export const MessageField: FunctionalComponent = () => {
     };
   }, []);
 
+  const onExited = (messageId: string) => {
+    setMessages((current) => current.filter((m) => m.message.id !== messageId));
+  };
+
   return (
     <div>
       <style
@@ -55,6 +59,7 @@ export const MessageField: FunctionalComponent = () => {
         <MessagePopup
           message={m.message}
           position={m.position}
+          onExited={onExited}
           key={m.message.id}
         />
       ))}
