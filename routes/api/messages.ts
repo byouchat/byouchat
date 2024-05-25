@@ -26,7 +26,9 @@ export const handler: Handlers = {
       const messages = await getMessages(message.id);
       const llmReply = await generateReply(message.body, messages);
 
-      await createMessage(llmReply, "black", "BOT");
+      if (llmReply) {
+        await createMessage(llmReply, "black", "BOT");
+      }
     }, 1500);
 
     return new Response(JSON.stringify({ ok: "ok" }), {

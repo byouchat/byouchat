@@ -34,7 +34,7 @@ export async function generateReply(message: string, history: StoredMessage[]) {
 
   if (!llmMessage || typeof llmMessage !== "string") {
     console.error(llmBody);
-    throw new Error("Invalid res");
+    return null;
   }
 
   return llmMessage;
