@@ -3,6 +3,7 @@ import { Input } from "./Input.tsx";
 import { Button } from "./Button.tsx";
 import { ComponentProps } from "preact";
 import { PostMessageBody } from "../../routes/api/messages.ts";
+import { CurrentTimeText } from "./CurrentTimeText.tsx";
 
 export const CenterCircle: FunctionalComponent = () => {
   const onSubmit: ComponentProps<"form">["onSubmit"] = async (
@@ -40,7 +41,9 @@ export const CenterCircle: FunctionalComponent = () => {
         <div class="text-5xl font-bold py-3">- 秒 -</div>
         <div class="text-sm">3秒で消えるSNS</div>
       </div>
-      <div class="text-sm">09時54分49秒</div>
+      <div class="text-sm">
+        <CurrentTimeText />
+      </div>
       <form class="w-full flex flex-col gap-4 px-3" onSubmit={onSubmit}>
         <Input name="message" placeholder="ここにテキストを入力" />
         <div class="w-full flex justify-between items-center">

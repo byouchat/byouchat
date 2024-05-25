@@ -8,6 +8,7 @@ import * as $api_messages from "./routes/api/messages.ts";
 import * as $index from "./routes/index.tsx";
 import * as $center_circle_Button from "./islands/center-circle/Button.tsx";
 import * as $center_circle_CenterCircle from "./islands/center-circle/CenterCircle.tsx";
+import * as $center_circle_CurrentTimeText from "./islands/center-circle/CurrentTimeText.tsx";
 import * as $center_circle_Input from "./islands/center-circle/Input.tsx";
 import * as $message_MessageField from "./islands/message/MessageField.tsx";
 import * as $message_MessagePopup from "./islands/message/MessagePopup.tsx";
@@ -26,6 +27,8 @@ const manifest = {
   islands: {
     "./islands/center-circle/Button.tsx": $center_circle_Button,
     "./islands/center-circle/CenterCircle.tsx": $center_circle_CenterCircle,
+    "./islands/center-circle/CurrentTimeText.tsx":
+      $center_circle_CurrentTimeText,
     "./islands/center-circle/Input.tsx": $center_circle_Input,
     "./islands/message/MessageField.tsx": $message_MessageField,
     "./islands/message/MessagePopup.tsx": $message_MessagePopup,
