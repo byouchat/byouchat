@@ -2,7 +2,7 @@ import { StoredMessage } from "./kv.ts";
 
 export async function generateReply(message: string, history: StoredMessage[]) {
   const messages = history.map((h) => ({
-    role: h.kind === "USER" ? "system" : "assistant",
+    role: h.kind === "USER" ? "user" : "assistant",
     content: h.body,
   }));
 
@@ -18,7 +18,7 @@ export async function generateReply(message: string, history: StoredMessage[]) {
         {
           "role": "system",
           "content":
-            "ここはインターネットのチャット掲示板です。メッセージに対して30文字以内の日本語で返事してください。2chのような口調で、少しぶっきらぼうで、タメ口で答えてください。",
+            "あなたは暇つぶしのチャットの相手です。メッセージに対して30文字以内の日本語で返事してください。2chのような煽り気味の口調で、少しぶっきらぼうで、タメ口で話します。絵文字は使わないでください。",
         },
         ...messages,
         {

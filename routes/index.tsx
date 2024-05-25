@@ -9,7 +9,7 @@ export default function Home() {
         <div>
           <CenterCircle />
         </div>
-        <div>
+        <div class="overflow-hidden">
           <MessageField />
         </div>
       </div>
