@@ -1,9 +1,3 @@
-export type Message = {
-  id: string;
-  body: string;
-  position: [x: number, y: number];
-};
-
 export function generatePosition(): [x: number, y: number] {
   const areaWidth = globalThis.innerWidth;
   const areaHeight = globalThis.innerHeight * 0.88;

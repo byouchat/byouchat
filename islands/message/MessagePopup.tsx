@@ -1,13 +1,18 @@
 import { FunctionalComponent } from "preact";
 import { useEffect, useState } from "preact/hooks";
-import { Message } from "./message.ts";
 import StyleTransition from "./transition/StyleTransition.tsx";
+import { colorMap } from "../../libs/color-pallete.ts";
+import { Message } from "../../routes/api/messages.ts";
+import { getTextColorForBgColor } from "../../libs/color-pallete.ts";
 
 type Props = {
   message: Message;
+  position: [x: number, y: number];
 };
 
-export const MessagePopup: FunctionalComponent<Props> = ({ message }) => {
+export const MessagePopup: FunctionalComponent<Props> = (
+  { message, position },
+) => {
   const [isShown, setShown] = useState(true);
 
   useEffect(() => {
@@ -26,8 +31,12 @@ export const MessagePopup: FunctionalComponent<Props> = ({ message }) => {
       in={isShown}
       duration={390}
       styles={{
+        appear: {
+          opacity: 0,
+        },
         appearActive: {
           animation: "bounce 0.4s",
+          opacity: 1,
         },
         appearDone: {
           opacity: 1,
@@ -45,10 +54,12 @@ export const MessagePopup: FunctionalComponent<Props> = ({ message }) => {
       appear
     >
       <div
-        class="text-white bg-black p-8 absolute"
+        class="p-8 absolute"
         style={{
-          "left": `${message.position[0]}px`,
-          "top": `${message.position[1]}px`,
+          "left": `${position[0]}px`,
+          "top": `${position[1]}px`,
+          "backgroundColor": colorMap[message.color],
+          "color": getTextColorForBgColor(message.color),
         }}
       >
         {message.body}

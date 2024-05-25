@@ -1,8 +1,10 @@
 import { ulid } from "@std/ulid";
+import { Color } from "./color-pallete.ts";
 
 export type StoredMessage = {
   id: string;
   body: string;
+  color: Color;
   kind: MessageKind;
 };
 
@@ -10,11 +12,13 @@ export type MessageKind = "USER" | "BOT";
 
 export async function createMessage(
   body: string,
+  color: Color,
   kind: MessageKind,
 ): Promise<StoredMessage> {
   const message = {
     id: ulid(),
     body,
+    color,
     kind,
   } satisfies StoredMessage;
 

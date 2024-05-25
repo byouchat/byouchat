@@ -29,6 +29,7 @@ export const CenterCircle: FunctionalComponent = () => {
         body: JSON.stringify(
           {
             message,
+            color,
           } satisfies PostMessageBody,
         ),
       });

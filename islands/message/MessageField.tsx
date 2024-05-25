@@ -1,21 +1,23 @@
 import { FunctionalComponent } from "preact";
 import { useEffect, useState } from "preact/hooks";
-import { generatePosition, Message } from "./message.ts";
+import { generatePosition } from "./message.ts";
 import { MessagePopup } from "./MessagePopup.tsx";
+import { Message } from "../../routes/api/messages.ts";
 
 export const MessageField: FunctionalComponent = () => {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<
+    { message: Message; position: [x: number, y: number] }[]
+  >([]);
 
   useEffect(() => {
     const source = new EventSource("/api/messages");
     source.addEventListener("message", (event) => {
-      const data: Message = JSON.parse(event.data);
-      const message = {
-        id: data.id,
-        body: data.body,
+      const message: Message = JSON.parse(event.data);
+      const data = {
+        message,
         position: generatePosition(),
       };
-      setMessages((current) => [...current, message]);
+      setMessages((current) => [...current, data]);
     });
 
     return () => {
@@ -49,7 +51,13 @@ export const MessageField: FunctionalComponent = () => {
         `,
         }}
       />
-      {messages.map((m) => <MessagePopup message={m} key={m.id} />)}
+      {messages.map((m) => (
+        <MessagePopup
+          message={m.message}
+          position={m.position}
+          key={m.message.id}
+        />
+      ))}
     </div>
   );
 };
