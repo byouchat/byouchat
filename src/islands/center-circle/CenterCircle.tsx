@@ -75,7 +75,13 @@ export const CenterCircle: FunctionalComponent = () => {
           </div>
         </form>
         <div class="flex flex-col-reverse flex-grow text-sm">
-          <div>Twitter @BYOUCHAT</div>
+          <a
+            href="https://github.com/byouchat/byouchat"
+            target="_blank"
+            rel="noopener"
+          >
+            GitHub
+          </a>
         </div>
       </div>
       {isPaletteOpen && (
