@@ -15,6 +15,7 @@ import {
 export const CenterCircle: FunctionalComponent = () => {
   const color = colorSignal.value;
   const [isPaletteOpen, setPaletteOpen] = useState(false);
+  const [isBouncing, setBouncing] = useState(false);
 
   const onSubmit: ComponentProps<"form">["onSubmit"] = async (
     e,
@@ -33,6 +34,11 @@ export const CenterCircle: FunctionalComponent = () => {
           } satisfies PostMessageBody,
         ),
       });
+
+      setBouncing(true);
+      setTimeout(() => {
+        setBouncing(false);
+      }, 500);
     }
 
     target?.reset();
@@ -43,11 +49,35 @@ export const CenterCircle: FunctionalComponent = () => {
 
   return (
     <>
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+            @keyframes circleBounce {
+              0% {
+                transform: scale(1);
+              }
+              30% {
+                transform: scale(0.95);
+              }
+              80% {
+                transform: scale(1.02);
+              }
+              100% {
+                transform: scale(1);
+              }
+            }
+          `,
+        }}
+      >
+      </style>
       <div
         class="w-96 h-96 rounded-full p-8 flex flex-col items-center gap-4 bg-byou-green"
         style={{
           "backgroundColor": colorMap[color],
           "color": getTextColorForBgColor(color),
+          "animation": isBouncing
+            ? "circleBounce 0.4s ease 0s forwards"
+            : undefined,
         }}
       >
         <div>
