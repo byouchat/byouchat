@@ -13,7 +13,7 @@ export async function generateReply(message: string, history: StoredMessage[]) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      "model": "openai/gpt-oss-20b:free",
+      "model": "openai/gpt-oss-120b:free",
       "messages": [
         {
           "role": "system",
